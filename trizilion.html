@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html >
     <head>
@@ -10,8 +9,6 @@
         <meta name="keywords" content="泰翰,ThiHan,ENTERPRISE,磁性,磁鐵,Magnetic">
         <title> TAI HAN ENTERPRISE CO., LTD</title>
 
-
-        <script src="packs/application-29be9e078d027b17160a.js"></script>
         <link rel="stylesheet" href="style.css">
         <script src="js/application.js" data-turbolinks-track="reload"></script>
         
@@ -178,10 +175,7 @@
                                         <select class="form-control form-control-sm fontAndBorderColor" id="magnetismGenres">
                                             <option value="N/A">Please select</option>
                                             <option value="NdFeB">NdFeB</option>
-                                            <option value="Bonded NdFeB">Bonded NdFeB</option>
                                             <option value="Ferrite">Ferrite</option>
-                                            <!--<option value="Flexible Magnet">Flexible Magnet</option>-->
-                                            <option value="AlNiCo">AlNiCo</option>
                                             <option value="SmCo">SmCo</option>
                                         </select>
                                     </div>
@@ -516,8 +510,6 @@
         </div>
         <div id="msgModalDiv"></div>
     </div>
-    <script src="./scripts/jquery-3.3.1.min.js"></script>
-    <script src="./scripts/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
     $(document).ready(function() {
@@ -672,6 +664,11 @@
                 }
             };
         };
+
+        $createInput = function($select, $number) {
+            $select.val($number);
+        };
+
         $checkNumber = function($input) {
             var $RegExp = /^([0-9][1-9]*)(.[0-9]{1,3})?$/;
             if (!$RegExp.test($input.val())) {
@@ -709,33 +706,19 @@
                     break;
                 case "NdFeB":
                     $("#series").empty();
-                    var $array = ["N series", "M series", "H series", "SH series", "UH series", "EH series", "AH series"];
-                    $createOptions($("#series"), $array);
-                    $fade($("#seriesDiv"));
-                    break;
-                case "Bonded NdFeB":
-                    $("#series").empty();
-                    var $array = ["Bonded NdFeB", "Injection NdFeB"];
+                    var $array = ["N series"];
                     $createOptions($("#series"), $array);
                     $fade($("#seriesDiv"));
                     break;
                 case "Ferrite":
                     $("#series").empty();
-                    var $array = ["Ferrite"];
-                    $createOptions($("#series"), $array);
-                    $fade($("#seriesDiv"));
-                    break;
-                case "Flexible Magnet":
-                    break;
-                case "AlNiCo":
-                    $("#series").empty();
-                    var $array = ["Cast AlNiCo", "Sintered AlNiCo"];
+                    var $array = ["Y series"];
                     $createOptions($("#series"), $array);
                     $fade($("#seriesDiv"));
                     break;
                 case "SmCo":
                     $("#series").empty();
-                    var $array = ["SmCo5", "Sm2Co17"];
+                    var $array = ["Sm series"];
                     $createOptions($("#series"), $array);
                     $fade($("#seriesDiv"));
                     break;
@@ -758,81 +741,15 @@
                     $createOptions($("#level"), $array);
                     $fade($("#levelDiv"));
                     break;
-                case "M series":
+                case "Y series":
                     $("#level").empty();
-                    var $array = ["N35M", "N38M", "N40M", "N42M", "N45M", "N48M", "N50M", "N52M"];
+                    var $array = ["Y10T", "Y25", "Y30", "Y32", "Y33", "Y35", "Y36", "Y38", "Y40"];
                     $createOptions($("#level"), $array);
                     $fade($("#levelDiv"));
                     break;
-                case "H series":
+                case "Sm series":
                     $("#level").empty();
-                    var $array = ["N35H", "N38H", "N40H", "N42H", "N46H", "N48H", "N50H"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "SH series":
-                    $("#level").empty();
-                    var $array = ["N33SH", "N35SH", "N38SH", "N40SH", "N42SH", "N45SH"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "UH series":
-                    $("#level").empty();
-                    var $array = ["N30UH", "N33UH", "N35UH", "N38UH", "N40UH", "N42UH"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "EH series":
-                    $("#level").empty();
-                    var $array = ["N30EH", "N33EH", "N35EH", "N38EH"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "AH series":
-                    $("#level").empty();
-                    var $array = ["N30AH", "N35AH"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "Bonded NdFeB":
-                    $("#level").empty();
-                    var $array = ["BN-6", "BN-8", "BN-8L", "BN-9", "BN-10", "BN-11", "BN-11L", "BN-12", "BN-12L"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "Injection NdFeB":
-                    $("#level").empty();
-                    var $array = ["BNI-3", "BNI-4", "BNI-5", "BNI-6", "BNI-7", "BNI-6H", "BNI5SR(PPS)"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "Ferrite":
-                    $("#level").empty();
-                    var $array = ["Y10T", "Y25", "Y26H-2", "Y28H-1", "Y28H-2", "Y30", "Y30H", "Y30H-1", "Y30H-2", "Y32", "Y32H-1", "Y32H-2", "Y32H-3", "Y33", "Y34", "Y35", "Y36", "Y38", "Y40"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "Cast AlNiCo":
-                    $("#level").empty();
-                    var $array = ["AlNiCo1 LN9", "AlNiCo2 LNG12", "AlNiCo2 LNG13", "AlNiCo3 LN10", "AlNiCo5 LNG37", "AlNiCo5DG LNG40", "AlNiCo5DG LNG44", "AlNiCo5-7 LNG52", "AlNiCo6 LNTG28", "AlNiCo7 LNGT18", "AlNiCo8 LNGT32", "AlNiCo8 LNGT40", "AlNiCo 8HC LNGT36J", "AlNiCo9 LNGT60", "AlNiCo9 LNGT72"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "Sintered AlNiCo":
-                    $("#level").empty();
-                    var $array = ["FLN8", "FLNG12", "FLNGT18", "FLNG34", "FLNGT28", "FLNGT38", "FLNGT42", "FLNGT33J"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "SmCo5":
-                    $("#level").empty();
-                    var $array = ["SmCo5 Sm18", "SmCo5 Sm20", "SmCo5 Sm22", "SmCo5 Sm24"];
-                    $createOptions($("#level"), $array);
-                    $fade($("#levelDiv"));
-                    break;
-                case "Sm2Co17":
-                    $("#level").empty();
-                    var $array = ["Sm2Co17 Sm24", "Sm2Co17 Sm26", "Sm2Co17 Sm28", "Sm2Co17 Sm30", "Sm2Co17 Sm32", "Sm2Co17 Sm24H", "Sm2Co17 Sm26H", "Sm2Co17 Sm28H", "Sm2Co17 Sm30H"];
+                    var $array = ["Sm18", "Sm20", "Sm22", "Sm24", "Sm26", "Sm28", "Sm30", "Sm32"];
                     $createOptions($("#level"), $array);
                     $fade($("#levelDiv"));
                     break;
@@ -840,18 +757,171 @@
         });
 
         $("#level").change(function() {
-            $.ajax({
-                url: 'http://house.annaler.com/j/defaultBr.php',
-                dataType: 'json',
-                type: 'POST',
-                data: { magnetismGenres: $("#magnetismGenres").val(), series: $("#series").val(), level: $("#level").val() },
-                error: function() {
-                    alert('AJAX request error.');
-                },
-                success: function(data) {
-                    $("#Br").val(data.Br);
-                },
-            });
+            switch ($(this).val()) {
+                default:
+                case "N/A":
+                    $("#sizeBrDiv").css("display", "none");
+                    $("#Br").empty();
+                    break;
+                case "N35":
+                    $("#Br").empty();
+                    var $number = 11900;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N38":
+                    $("#Br").empty();
+                    var $number = 12300;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N40":
+                    $("#Br").empty();
+                    var $number = 12600;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N42":
+                    $("#Br").empty();
+                    var $number = 13000;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N45":
+                    $("#Br").empty();
+                    var $number = 13400;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N48":
+                    $("#Br").empty();
+                    var $number = 13900;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N50":
+                    $("#Br").empty();
+                    var $number = 14200;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N52":
+                    $("#Br").empty();
+                    var $number = 14550;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "N54":
+                    $("#Br").empty();
+                    var $number = 14800;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                /*Sm series*/
+                case "Sm18":
+                    $("#Br").empty();
+                    var $number = 8500;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Sm20":
+                    $("#Br").empty();
+                    var $number = 9200;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Sm22":
+                    $("#Br").empty();
+                    var $number = 9400;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Sm24":
+                    $("#Br").empty();
+                    var $number = 9700;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Sm26":
+                    $("#Br").empty();
+                    var $number = 10300;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Sm28":
+                    $("#Br").empty();
+                    var $number = 10500;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                 case "Sm30":
+                    $("#Br").empty();
+                    var $number = 10900;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                 case "Sm32":
+                    $("#Br").empty();
+                    var $number = 11200;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                /* Y series*/
+                case "Y10T":
+                    $("#Br").empty();
+                    var $number = 2000;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y25":
+                    $("#Br").empty();
+                    var $number = 3700;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y30":
+                    $("#Br").empty();
+                    var $number = 3800;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y32":
+                    $("#Br").empty();
+                    var $number = 4000;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y33":
+                    $("#Br").empty();
+                    var $number = 4100;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y35":
+                    $("#Br").empty();
+                    var $number = 4300;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y36":
+                    $("#Br").empty();
+                    var $number = 4400;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y38":
+                    $("#Br").empty();
+                    var $number = 4450;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+                case "Y40":
+                    $("#Br").empty();
+                    var $number = 4550;
+                    $createInput($("#Br"), $number);
+                    $fade($("#sizeBrDiv"));
+                    break;
+            }
         });
 
         $("#B_unit").change(function() {
@@ -1147,16 +1217,6 @@
 </body>
 
 </html>
-        <script src="assets/web/assets/jquery/jquery.min.js"></script>
-        <script src="assets/popper/popper.min.js"></script>
-        <script src="assets/tether/tether.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/smoothscroll/smooth-scroll.js"></script>
-        <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-        <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
-        <script src="assets/parallax/jarallax.min.js"></script>
-        <script src="assets/dropdown/js/script.min.js"></script>
-        <script src="assets/theme/js/script.js"></script>
 
         <div id="scrollToTop" class="scrollToTop mbr-arrow-up">
             <a style="text-align: center;"><i></i></a>
