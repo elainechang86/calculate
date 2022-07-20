@@ -707,18 +707,21 @@
                 case "NdFeB":
                     $("#series").empty();
                     var $array = ["N series"];
+                    var $density = 7.5;
                     $createOptions($("#series"), $array);
                     $fade($("#seriesDiv"));
                     break;
                 case "Ferrite":
                     $("#series").empty();
                     var $array = ["Y series"];
+                    var $density = 5;
                     $createOptions($("#series"), $array);
                     $fade($("#seriesDiv"));
                     break;
                 case "SmCo":
                     $("#series").empty();
                     var $array = ["Sm series"];
+                    var $density = 8.5;
                     $createOptions($("#series"), $array);
                     $fade($("#seriesDiv"));
                     break;
@@ -1030,39 +1033,21 @@
                                     if ($("#Br").val() == "") {
                                         $("#Br").val("0");
                                     }
-                                    $.ajax({
-                                        url: 'http://house.annaler.com/j/calculateGs.php',
-                                        dataType: 'json',
-                                        type: 'POST',
-                                        data: { shape: "disc", magnetismGenres: $("#magnetismGenres").val(), series: $("#series").val(), level: $("#level").val(), discH: $("#discH").val(), discD: $("#discD").val(), Br: $("#Br").val(), userName: $("#userName").val(), userEmail: $("#userEmail").val() },
-                                        error: function() {
-                                            alert('AJAX request error.');
-                                        },
-                                        success: function(data) {
-                                            $appendParamResult($("#calculateResultBSpan"), data.B);
-                                            $appendParamResult($("#calculateResultNW"), data.NW);
-                                            $appendParamResult($("#calculateResultMagnetism"), data.magnetism);
-                                            $appendParamResult($("#calculateResult_bHc_kOe"), data.bHc_kOe);
-                                            //$appendParamResult($("#calculateResult_bHc_kA_m"), data.bHc_kA_m);
-                                            $appendParamResult($("#calculateResult_iHc_kOe"), data.iHc_kOe);
-                                            //$appendParamResult($("#calculateResult_iHc_kA_m"), data.iHc_kA_m);
-                                            $appendParamResult($("#calculateResult_BH_max_MGOe"), data.BH_max_MGOe);
-                                            //$appendParamResult($("#calculateResult_BH_max_kJ_m3"), data.BH_max_kJ_m3);
-                                            $appendParamResult($("#calculateResultTc"), data.Tc);
-                                            $appendParamResult($("#calculateResultTw"), data.Tw);
-                                            bHc_kOe = data.bHc_kOe;
-                                            bHc_kA_m = data.bHc_kA_m;
-                                            iHc_kOe = data.iHc_kOe;
-                                            iHc_kA_m = data.iHc_kA_m;
-                                            BH_max_MGOe = data.BH_max_MGOe;
-                                            BH_max_kJ_m3 = data.BH_max_kJ_m3;
-                                            $("#B_unit").val("Gs");
-                                            $("#bHc_unit").val("kOe");
-                                            $("#iHc_unit").val("kOe");
-                                            $("#BHmax_unit").val("MGOe");
-                                            $scrollToResult();
-                                        },
-                                    });
+                                    if ($("#magnetismGenres").val() == "NdFeB"){
+                                        var $density = 7.5;
+                                    }else if ($("#magnetismGenres").val() == "Ferrite"){
+                                        var $density = 5;
+                                    }else if ($("#magnetismGenres").val() == "SmCo"){
+                                        var $density = 8.5;
+                                    }
+                                    var $Br = $("#Br").val();
+                                    var $discH = $("#discH").val();
+                                    var $discD = $("#discD").val();
+                                    var $discR = 0.5 * $("#discD").val();
+                                    var $discB = ($Br*0.5)*($discH / (Math.sqrt(($discR*$discR)+($discH*$discH))) );
+                                    var $discweight = (3.14 * ($discD*0.5) * ($discD*0.5) * $discH * $density)/1000;
+                                    $appendParamResult($("#calculateResultBSpan"), Math.round($discB*100)/100);
+                                    $appendParamResult($("#calculateResultNW"),Math.round($discweight*100)/100);
                                 } else {
                                     $appendMsgModal("Please enter correct E-mail.");
                                 }
@@ -1089,39 +1074,24 @@
                                             if ($("#Br").val() == "") {
                                                 $("#Br").val("0");
                                             }
-                                            $.ajax({
-                                                url: 'http://house.annaler.com/j/calculateGs.php',
-                                                dataType: 'json',
-                                                type: 'POST',
-                                                data: { shape: "ring", magnetismGenres: $("#magnetismGenres").val(), series: $("#series").val(), level: $("#level").val(), ringH: $("#ringH").val(), ringOD: $("#ringOD").val(), ringID: $("#ringID").val(), Br: $("#Br").val(), userName: $("#userName").val(), userEmail: $("#userEmail").val() },
-                                                error: function() {
-                                                    alert('AJAX request error.');
-                                                },
-                                                success: function(data) {
-                                                    $appendParamResult($("#calculateResultBSpan"), data.B);
-                                                    $appendParamResult($("#calculateResultNW"), data.NW);
-                                                    $appendParamResult($("#calculateResultMagnetism"), data.magnetism);
-                                                    $appendParamResult($("#calculateResult_bHc_kOe"), data.bHc_kOe);
-                                                    //$appendParamResult($("#calculateResult_bHc_kA_m"), data.bHc_kA_m);
-                                                    $appendParamResult($("#calculateResult_iHc_kOe"), data.iHc_kOe);
-                                                    //$appendParamResult($("#calculateResult_iHc_kA_m"), data.iHc_kA_m);
-                                                    $appendParamResult($("#calculateResult_BH_max_MGOe"), data.BH_max_MGOe);
-                                                    //$appendParamResult($("#calculateResult_BH_max_kJ_m3"), data.BH_max_kJ_m3);
-                                                    $appendParamResult($("#calculateResultTc"), data.Tc);
-                                                    $appendParamResult($("#calculateResultTw"), data.Tw);
-                                                    bHc_kOe = data.bHc_kOe;
-                                                    bHc_kA_m = data.bHc_kA_m;
-                                                    iHc_kOe = data.iHc_kOe;
-                                                    iHc_kA_m = data.iHc_kA_m;
-                                                    BH_max_MGOe = data.BH_max_MGOe;
-                                                    BH_max_kJ_m3 = data.BH_max_kJ_m3;
-                                                    $("#B_unit").val("Gs");
-                                                    $("#bHc_unit").val("kOe");
-                                                    $("#iHc_unit").val("kOe");
-                                                    $("#BHmax_unit").val("MGOe");
-                                                    $scrollToResult();
-                                                },
-                                            });
+                                            if ($("#magnetismGenres").val() == "NdFeB"){
+                                                var $density = 7.5;
+                                            }else if ($("#magnetismGenres").val() == "Ferrite"){
+                                                var $density = 5;
+                                            }else if ($("#magnetismGenres").val() == "SmCo"){
+                                                var $density = 8.5;
+                                            }
+                                            var $Br = $("#Br").val();
+                                            var $ringH = $("#ringH").val();
+                                            var $ringOD = $("#ringOD").val();
+                                            var $ringODR = 0.5 * $("#ringOD").val();
+                                            var $ringID = $("#ringID").val();
+                                            var $ringIDR = 0.5 * $("#ringID").val();
+                                            var $ringB1 = ($Br*0.5) * (( $ringH / Math.sqrt(($ringODR*$ringODR) + ($ringIDR*$ringIDR))) - ($ringH / Math.sqrt( ($ringIDR*$ringIDR) + ($ringH*$ringH))))
+                                            var $ringB = Math.sqrt($ringB1*$ringB1);
+                                            var $ringweight = ((($ringODR*$ringODR)-($ringIDR*$ringIDR))*3.14*$ringH*$density)/1000;
+                                            $appendParamResult($("#calculateResultBSpan"), Math.round($ringB*100)/100);
+                                            $appendParamResult($("#calculateResultNW"),Math.round($ringweight*100)/100);
                                         } else {
                                             $appendMsgModal("Please enter correct E-mail.");
                                         }
@@ -1153,39 +1123,33 @@
                                         if ($("#Br").val() == "") {
                                             $("#Br").val("0");
                                         }
-                                        $.ajax({
-                                            url: 'http://house.annaler.com/j/calculateGs.php',
-                                            dataType: 'json',
-                                            type: 'POST',
-                                            data: { shape: "block", magnetismGenres: $("#magnetismGenres").val(), series: $("#series").val(), level: $("#level").val(), blockH: $("#blockH").val(), blockL: $("#blockL").val(), blockW: $("#blockW").val(), Br: $("#Br").val(), userName: $("#userName").val(), userEmail: $("#userEmail").val() },
-                                            error: function() {
-                                                alert('AJAX request error.');
-                                            },
-                                            success: function(data) {
-                                                $appendParamResult($("#calculateResultBSpan"), data.B);
-                                                $appendParamResult($("#calculateResultNW"), data.NW);
-                                                $appendParamResult($("#calculateResultMagnetism"), data.magnetism);
-                                                $appendParamResult($("#calculateResult_bHc_kOe"), data.bHc_kOe);
-                                                //$appendParamResult($("#calculateResult_bHc_kA_m"), data.bHc_kA_m);
-                                                $appendParamResult($("#calculateResult_iHc_kOe"), data.iHc_kOe);
-                                                //$appendParamResult($("#calculateResult_iHc_kA_m"), data.iHc_kA_m);
-                                                $appendParamResult($("#calculateResult_BH_max_MGOe"), data.BH_max_MGOe);
-                                                //$appendParamResult($("#calculateResult_BH_max_kJ_m3"), data.BH_max_kJ_m3);
-                                                $appendParamResult($("#calculateResultTc"), data.Tc);
-                                                $appendParamResult($("#calculateResultTw"), data.Tw);
-                                                bHc_kOe = data.bHc_kOe;
-                                                bHc_kA_m = data.bHc_kA_m;
-                                                iHc_kOe = data.iHc_kOe;
-                                                iHc_kA_m = data.iHc_kA_m;
-                                                BH_max_MGOe = data.BH_max_MGOe;
-                                                BH_max_kJ_m3 = data.BH_max_kJ_m3;
-                                                $("#B_unit").val("Gs");
-                                                $("#bHc_unit").val("kOe");
-                                                $("#iHc_unit").val("kOe");
-                                                $("#BHmax_unit").val("MGOe");
-                                                $scrollToResult();
-                                            },
-                                        });
+                                        if ($("#magnetismGenres").val() == "NdFeB"){
+                                            var $density = 7.5;
+                                        }else if ($("#magnetismGenres").val() == "Ferrite"){
+                                            var $density = 5;
+                                        }else if ($("#magnetismGenres").val() == "SmCo"){
+                                            var $density = 8.5;
+                                        }
+                                        var $Br = $("#Br").val();
+                                        console.log('Br', $Br)
+                                        var $blockl = $("#blockL").val();
+                                        var $blockw = $("#blockW").val();
+                                        var $blockh = $("#blockH").val();
+                                        var $blocktan1 = Math.atan(($blockl*$blockw)/(2*0*Math.sqrt((4*0)+($blockl*$blockl)+($blockw*$blockw)))) 
+                                        var $blocktan2 = Math.atan(($blockl*$blockw)/(2*($blockh)*Math.sqrt((4*$blockh*$blockh)+($blockl*$blockl)+($blockw*$blockw))))
+                                        var $blockB = ($Br/Math.PI) * ($blocktan1-$blocktan2)
+                                        var $blockweight = $blockh * $blockl * $blockw * $density / 1000;
+                                        $appendParamResult($("#calculateResultBSpan"), Math.round($blockB*100)/100);
+                                        $appendParamResult($("#calculateResultNW"), Math.round($blockweight*100)/100);
+                                        //$appendParamResult($("#calculateResultMagnetism"), data.magnetism);
+                                        //$appendParamResult($("#calculateResult_bHc_kOe"), data.bHc_kOe);
+                                        //$appendParamResult($("#calculateResult_bHc_kA_m"), data.bHc_kA_m);
+                                        //$appendParamResult($("#calculateResult_iHc_kOe"), data.iHc_kOe);
+                                        //$appendParamResult($("#calculateResult_iHc_kA_m"), data.iHc_kA_m);
+                                        //$appendParamResult($("#calculateResult_BH_max_MGOe"), data.BH_max_MGOe);
+                                        //$appendParamResult($("#calculateResult_BH_max_kJ_m3"), data.BH_max_kJ_m3);
+                                        //$appendParamResult($("#calculateResultTc"), data.Tc);
+                                        //$appendParamResult($("#calculateResultTw"), data.Tw);
                                     } else {
                                         $appendMsgModal("Please enter correct E-mail.");
                                     }
