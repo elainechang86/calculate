@@ -243,22 +243,6 @@
                             </div>-->
                                     </div>
                                 </div>
-                                <div class="mb-2 row align-items-center justify-content-center">
-                                    <div class="col-4 align-self-center">
-                                        <span class="fontAndBorderColor fontBold">*Name</span>
-                                    </div>
-                                    <div id="nameDiv" class="col-8 align-self-center">
-                                        <input id="userName" class="form-control form-control-sm" type="text" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="row align-items-center justify-content-center">
-                                    <div class="col-4 align-self-center">
-                                        <span class="fontAndBorderColor fontBold">*E-mail</span>
-                                    </div>
-                                    <div id="emailDiv" class="col-8 align-self-center">
-                                        <input id="userEmail" class="form-control form-control-sm" type="email" placeholder="">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -935,7 +919,7 @@
                         $("#calculateResultBSpan").text($("#calculateResultBSpan").text() / 0.0001);
                         break;
                     case "T":
-                        $("#calculateResultBSpan").text($("#calculateResultBSpan").text() * 0.0001);
+                        $("#calculateResultBSpan").text(Math.round(($("#calculateResultBSpan").text() * 0.0001)*10000)/10000);
                         break;
                 }
             }
@@ -1028,8 +1012,6 @@
                 if ($("#level").val() != "N/A") {
                     if ($("#discD").val() != "") {
                         if ($("#discH").val() != "") {
-                            if ($("#userName").val() != "") {
-                                if ($checkEmail($("#userEmail"))) {
                                     if ($("#Br").val() == "") {
                                         $("#Br").val("0");
                                     }
@@ -1047,13 +1029,7 @@
                                     var $discB = ($Br*0.5)*($discH / (Math.sqrt(($discR*$discR)+($discH*$discH))) );
                                     var $discweight = (3.14 * ($discD*0.5) * ($discD*0.5) * $discH * $density)/1000;
                                     $appendParamResult($("#calculateResultBSpan"), Math.round($discB*100)/100);
-                                    $appendParamResult($("#calculateResultNW"),Math.round($discweight*100)/100);
-                                } else {
-                                    $appendMsgModal("Please enter correct E-mail.");
-                                }
-                            } else {
-                                $appendMsgModal("Please enter Name.");
-                            }
+                                    $appendParamResult($("#calculateResultNW"),Math.round($discweight*100)/100); 
                         } else {
                             $appendMsgModal("Please enter Size H.");
                         }
@@ -1069,8 +1045,6 @@
                         if ($("#ringID").val() != "") {
                             if ($("#ringH").val() != "") {
                                 if (parseFloat($("#ringID").val()) < parseFloat($("#ringOD").val())) {
-                                    if ($("#userName").val() != "") {
-                                        if ($checkEmail($("#userEmail"))) {
                                             if ($("#Br").val() == "") {
                                                 $("#Br").val("0");
                                             }
@@ -1092,12 +1066,6 @@
                                             var $ringweight = ((($ringODR*$ringODR)-($ringIDR*$ringIDR))*3.14*$ringH*$density)/1000;
                                             $appendParamResult($("#calculateResultBSpan"), Math.round($ringB*100)/100);
                                             $appendParamResult($("#calculateResultNW"),Math.round($ringweight*100)/100);
-                                        } else {
-                                            $appendMsgModal("Please enter correct E-mail.");
-                                        }
-                                    } else {
-                                        $appendMsgModal("Please enter Name.");
-                                    }
                                 } else {
                                     $appendMsgModal("Size ID can't greater than or equal to size OD.");
                                 }
@@ -1118,8 +1086,6 @@
                     if ($("#blockL").val() != "") {
                         if ($("#blockW").val() != "") {
                             if ($("#blockH").val() != "") {
-                                if ($("#userName").val() != "") {
-                                    if ($checkEmail($("#userEmail"))) {
                                         if ($("#Br").val() == "") {
                                             $("#Br").val("0");
                                         }
@@ -1150,12 +1116,6 @@
                                         //$appendParamResult($("#calculateResult_BH_max_kJ_m3"), data.BH_max_kJ_m3);
                                         //$appendParamResult($("#calculateResultTc"), data.Tc);
                                         //$appendParamResult($("#calculateResultTw"), data.Tw);
-                                    } else {
-                                        $appendMsgModal("Please enter correct E-mail.");
-                                    }
-                                } else {
-                                    $appendMsgModal("Please enter Name.");
-                                }
                             } else {
                                 $appendMsgModal("Please enter Size H.");
                             }
